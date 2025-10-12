@@ -95,7 +95,7 @@ public class Tree<T extends Comparable<? super T>> {
     /**
      * @return a string represent of this tree in bulleted list form.
      */
-    public String toPrettyStringf() {
+    public String toPrettyString() {
         throw new UnsupportedOperationException();
     }
 
