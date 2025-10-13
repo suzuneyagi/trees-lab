@@ -53,7 +53,23 @@ public class Tree<T extends Comparable<? super T>> {
      * @return true iff the tree contains <code>value</code>
      */
     public boolean contains(T value) {
-        throw new UnsupportedOperationException();
+        if(root == null){
+            return false;
+        } else{
+            Tree<T> leftBranch = new Tree<T>(root.left);
+            Tree<T> rightBranch = new Tree<T>(root.right);
+            if(value.compareTo(root.value)==0){
+                return true;
+            } else if(root.left == null && root.right == null){
+                return false;
+            } else if(rightBranch.contains(value)){
+                return true;
+            } else if(leftBranch.contains(value)){
+                return true;
+            } else{
+                return false;
+            }
+        }
     }
 
     ///// Part 2: toString
@@ -64,8 +80,23 @@ public class Tree<T extends Comparable<? super T>> {
      */
     @Override
     public String toString() {
-        throw new UnsupportedOperationException();
+        StringBuffer buf = new StringBuffer("[");
+        if (root == null) {
+            buf.append ("]");
+        } else {
+            buf.append(root.value);
+            buf.append(", ");
+            Tree<T> leftBranch = new Tree<T>(root.left);
+            Tree<T> rightBranch = new Tree<T>(root.right);
+            buf.append(leftBranch.toString());
+            buf.append(rightBranch.toString());
+        }
+        return buf.toString();
     }
+
+    // public String toStringHelper() {
+
+    // }
 
     ///// Part 3: Traversals
 
