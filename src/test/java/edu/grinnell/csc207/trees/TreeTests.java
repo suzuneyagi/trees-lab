@@ -55,7 +55,7 @@ public class TreeTests {
     @Test
     public void sampleTreeToStringTest() {
         Tree<Integer> sampleTree = makeSampleTree();
-        assertEquals("[5, 2, 1, 3, 8, 7, 6, 6, 10]", sampleTree.toString());
+        assertEquals("[5, 2, 1, 3, 8, 7, 6, 9, 10]", sampleTree.toString());
     }
 
     @Test

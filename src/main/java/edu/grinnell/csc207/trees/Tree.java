@@ -1,5 +1,6 @@
 package edu.grinnell.csc207.trees;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -81,22 +82,32 @@ public class Tree<T extends Comparable<? super T>> {
     @Override
     public String toString() {
         StringBuffer buf = new StringBuffer("[");
-        if (root == null) {
-            buf.append ("]");
-        } else {
-            buf.append(root.value);
-            buf.append(", ");
+        
+        if (root != null) {
             Tree<T> leftBranch = new Tree<T>(root.left);
             Tree<T> rightBranch = new Tree<T>(root.right);
-            buf.append(leftBranch.toString());
-            buf.append(rightBranch.toString());
+            buf.append(root.value);
+            buf.append(leftBranch.toStringHelper());
+            buf.append(rightBranch.toStringHelper());
         }
+        buf.append ("]");
         return buf.toString();
     }
 
-    // public String toStringHelper() {
-
-    // }
+    public String toStringHelper() {
+        if (root == null) {
+            return "";
+        } else {
+            StringBuffer buf = new StringBuffer("");
+            buf.append(", ");
+            buf.append(root.value);
+            Tree<T> leftBranch = new Tree<T>(root.left);
+            Tree<T> rightBranch = new Tree<T>(root.right);
+            buf.append(leftBranch.toStringHelper());
+            buf.append(rightBranch.toStringHelper());
+            return buf.toString();
+        }
+    }
 
     ///// Part 3: Traversals
 
@@ -104,7 +115,27 @@ public class Tree<T extends Comparable<? super T>> {
      * @return the elements of this tree collected via an in-order traversal
      */
     public List<T> toListInorder() {
-        throw new UnsupportedOperationException();
+        List<T> treeElements = new ArrayList<T>(size());
+        Tree<T> leftBranch = new Tree<T>(root.left);
+        Tree<T> rightBranch = new Tree<T>(root.right);
+        inOrderHelper(treeElements, leftBranch);
+        treeElements.add(root.value);
+        inOrderHelper(treeElements, rightBranch);
+        return treeElements;
+
+
+    }
+
+    public void inOrderHelper(List<T> lst, Tree<T> tree){
+        if(root == null){
+            return;
+        } else{
+            Tree<T> leftBranch = new Tree<T>(root.left);
+            Tree<T> rightBranch = new Tree<T>(root.right);
+            inOrderHelper(lst, leftBranch);
+            lst.add(root.value);
+            inOrderHelper(lst, rightBranch);
+        }
     }
 
     /**
