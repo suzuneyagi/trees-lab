@@ -116,25 +116,23 @@ public class Tree<T extends Comparable<? super T>> {
      */
     public List<T> toListInorder() {
         List<T> treeElements = new ArrayList<T>(size());
-        Tree<T> leftBranch = new Tree<T>(root.left);
-        Tree<T> rightBranch = new Tree<T>(root.right);
-        inOrderHelper(treeElements, leftBranch);
-        treeElements.add(root.value);
-        inOrderHelper(treeElements, rightBranch);
+        inOrderHelper(treeElements, root);
         return treeElements;
-
-
     }
 
-    public void inOrderHelper(List<T> lst, Tree<T> tree){
-        if(root == null){
+    public void inOrderHelper(List<T> lst, Node<T> treeRoot){
+        if(treeRoot == null){
             return;
-        } else{
-            Tree<T> leftBranch = new Tree<T>(root.left);
-            Tree<T> rightBranch = new Tree<T>(root.right);
-            inOrderHelper(lst, leftBranch);
-            lst.add(root.value);
-            inOrderHelper(lst, rightBranch);
+        } else if(treeRoot.left == null && treeRoot.right != null){
+            lst.add(treeRoot.value);
+            inOrderHelper(lst, treeRoot.right);
+        }else if(treeRoot.right ==null && treeRoot.left != null){
+            inOrderHelper(lst, treeRoot.left);
+            lst.add(treeRoot.value); 
+        }else{
+            inOrderHelper(lst, treeRoot.left);
+            lst.add(treeRoot.value);
+            inOrderHelper(lst, treeRoot.right);
         }
     }
 
@@ -142,14 +140,51 @@ public class Tree<T extends Comparable<? super T>> {
      * @return the elements of this tree collected via a pre-order traversal
      */
     public List<T> toListPreorder() {
-        throw new UnsupportedOperationException();
+        List<T> treeElements = new ArrayList<T>(size());
+        preOrderHelper(treeElements, root);
+        return treeElements;
     }
+
+    public void preOrderHelper(List<T> lst, Node<T> treeRoot){
+        if(treeRoot == null){
+            return;
+        } else if(treeRoot.left == null && treeRoot.right != null){
+            lst.add(treeRoot.value);
+            preOrderHelper(lst, treeRoot.right);
+        }else if(treeRoot.right ==null && treeRoot.left != null){
+            lst.add(treeRoot.value);
+            preOrderHelper(lst, treeRoot.left); 
+        }else{
+            lst.add(treeRoot.value);
+            preOrderHelper(lst, treeRoot.left);
+            preOrderHelper(lst, treeRoot.right);
+        }
+    }
+
 
     /**
      * @return the elements of this tree collected via a post-order traversal
      */
     public List<T> toListPostorder() {
-        throw new UnsupportedOperationException();
+        List<T> treeElements = new ArrayList<T>(size());
+        postOrderHelper(treeElements, root);
+        return treeElements;
+    }
+
+    public void postOrderHelper(List<T> lst, Node<T> treeRoot){
+        if(treeRoot == null){
+            return;
+        } else if(treeRoot.left == null && treeRoot.right != null){
+            postOrderHelper(lst, treeRoot.right);
+            lst.add(treeRoot.value);
+        }else if(treeRoot.right ==null && treeRoot.left != null){
+            postOrderHelper(lst, treeRoot.left); 
+            lst.add(treeRoot.value);
+        }else{
+            postOrderHelper(lst, treeRoot.left);
+            postOrderHelper(lst, treeRoot.right);
+            lst.add(treeRoot.value);
+        }
     }
 
     ///// Extra: Pretty Printing

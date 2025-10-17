@@ -17,7 +17,7 @@ public class TreeTests {
                                         new Node (7, 
                                             new Node (6), null),
                                         new Node (9,
-                                            new Node (10), null)));
+                                            null, new Node (10))));
         return new Tree<Integer>(sampleTree);
     }
 
